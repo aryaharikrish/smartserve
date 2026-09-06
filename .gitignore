@@ -1,0 +1,38 @@
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python bytecode & cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Distribution / Build directories
+.dist/
+build/
+dist/
+*.egg-info/
+
+# User uploads & confidential certificates
+static/uploads/certificates/*
+!static/uploads/certificates/.gitkeep
+
+# Operating System & IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporary test / log files
+*.log
+*.tmp
+test_*.py
