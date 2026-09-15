@@ -190,6 +190,7 @@
                         <th>Email Address</th>
                         <th>Phone Number</th>
                         <th>Location</th>
+                        <th>Last Login</th>
                         <th>Certificate</th>
                         <th>Action</th>
                     </tr>
@@ -202,6 +203,7 @@
                         <td class="cell-subtext">{{ p.email }}</td>
                         <td class="cell-subtext">{{ p.phone }}</td>
                         <td class="cell-subtext">{{ p.location }}</td>
+                        <td class="cell-subtext">{{ p.last_login or 'Never' }}</td>
                         <td>
                             {% if p.certificate %}
                                 <a href="{{ url_for('static', filename=p.certificate.replace('uploads/', 'uploads/').split('static/')[-1]) if 'static' in p.certificate else url_for('static', filename=p.certificate) }}" target="_blank" class="cert-link">
@@ -225,7 +227,7 @@
                     
                     {% if not providers %}
                     <tr>
-                        <td colspan="7">
+                        <td colspan="8">
                             <div class="empty-state">
                                 <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>

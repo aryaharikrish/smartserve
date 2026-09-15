@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, session, jsonify
 from database import users, providers, bookings, payments, time_slots
 from bson.objectid import ObjectId
@@ -48,6 +49,8 @@ def login():
             return redirect('/admin')
 
         try:
+            now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
             # 2. USER LOGIN
             user = users.find_one({
                 "email": email,
@@ -55,6 +58,7 @@ def login():
             })
             if user:
                 session['user'] = email
+                users.update_one({"_id": user["_id"]}, {"$set": {"last_login": now_str}})
                 return redirect('/user_home')
 
             # 3. PROVIDER LOGIN (ONLY IF VERIFIED)
@@ -65,6 +69,7 @@ def login():
             if provider:
                 if provider.get("verified"):
                     session['provider'] = email
+                    providers.update_one({"_id": provider["_id"]}, {"$set": {"last_login": now_str}})
                     return redirect('/provider_home')
                 else:
                     return render_template("auth/login.html", error="Provider account not verified yet.")
